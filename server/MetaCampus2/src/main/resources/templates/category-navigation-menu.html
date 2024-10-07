@@ -1,0 +1,25 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-body-secondary vh-100">
+    <ul id="" class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/resources/images}"
+               th:classappend="${menuCategory == T(metacampus2.model.MenuCategory).RESOURCES ?
+                    'selected active' : 'link-body-emphasis'}">
+                Resources
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/spaces/display-panels}"
+               th:classappend="${menuCategory == T(metacampus2.model.MenuCategory).SPACES ?
+                    'selected active' : 'link-body-emphasis'}">
+                Spaces
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/metaverses}"
+               th:classappend="${menuCategory == T(metacampus2.model.MenuCategory).METAVERSES ?
+                    'selected active' : 'link-body-emphasis'}">
+                Metaverses
+            </a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,100 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+main {
+    height: 100%;
+}
+
+#mainContainer {
+    height: 100%;
+}
+
+#mainContainer .row {
+    min-height: 100%;
+}
+
+#headerTitle {
+    font-size: 64px;
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+#categoryMenuContainer {
+    padding-right: 0;
+}
+
+#categoryMenuContainer .nav-link {
+    font-size: 18px;
+}
+
+#resourcesNavigationMenu {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+#spacesNavigationMenu {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+#metaverseNavigationMenu {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.entity-item {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.entity-item.selected {
+    color: black;
+    user-select: none;
+    text-decoration: none;
+}
+
+.table-container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+ .entities-table {
+     margin-top: 30px;
+     margin-bottom: 30px;
+     table-layout: fixed;
+ }
+
+ .form-container {
+     margin-top: 30px;
+     margin-bottom: 30px;
+     padding-left: 20px;
+     padding-right: 20px;
+ }
+
+ .error-message {
+     color: red;
+ }
+
+th {
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.valid-input {
+    border-color: green;
+}
+
+.invalid-input {
+    border-color: red;
+}
+
+.table-container {
+    height: 70vh;
+    overflow-y:auto;
+}

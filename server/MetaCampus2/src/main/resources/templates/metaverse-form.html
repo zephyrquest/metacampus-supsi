@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{master :: layout(~{::title},~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Metaverse form</title>
+</head>
+<body>
+<main>
+    <div id="mainContainer" class="container-fluid">
+        <div class="row">
+            <div id="categoryMenuContainer" class="col-2">
+                <div th:insert="category-navigation-menu"></div>
+            </div>
+            <div class="col">
+                <div>
+                    <div id="metaverseNavigationMenu" class="row justify-content-around text-center bg-body-secondary">
+                        <div class="col">
+                            <span class="entity-item">
+                                Metaverse
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <form th:href="@{/metaverses/new}" method="post" th:object="${metaverse}">
+                        <div class="mb-5">
+                            <span class="fs-4 text-body-secondary" th:text="${title}"></span>
+                        </div>
+
+                        <input type="hidden" th:field="*{creator}">
+
+                        <div class="row mb-3">
+                            <label for="name" class="col-form-label col-2">Name</label>
+                            <div class="col-6">
+                                <input id="name" class="form-control" type="text" name="name"
+                                       th:value="*{name}" required>
+                            </div>
+                        </div>
+
+                        <div class="pt-3">
+                            <div class="mb-3">
+                                <span class="fs-5">Dimensions (in meters)</span>
+                            </div>
+
+                            <div class="d-flex">
+                                <div class="row mb-3">
+                                    <label for="minXDimension" class="col-form-label col">Minimum X coordinate</label>
+                                    <div class="col">
+                                        <input id="minXDimension" class="form-control" type="number" step="1"
+                                               name="minXDimension" th:value="*{minXDimension}" required>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 ms-5">
+                                    <label for="maxXDimension" class="col-form-label col">Maximum X coordinate</label>
+                                    <div class="col">
+                                        <input id="maxXDimension" class="form-control" type="number" step="1"
+                                               name="maxXDimension" th:value="*{maxXDimension}" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex">
+                                <div class="row mb-3">
+                                    <label for="minYDimension" class="col-form-label col">Minimum Y coordinate</label>
+                                    <div class="col">
+                                        <input id="minYDimension" class="form-control" type="number" step="1"
+                                               name="minYDimension" th:value="*{minYDimension}" required>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 ms-5">
+                                    <label for="maxYDimension" class="col-form-label col">Maximum Y coordinate</label>
+                                    <div class="col">
+                                        <input id="maxYDimension" class="form-control" type="number" step="1"
+                                               name="maxYDimension" th:value="*{maxYDimension}" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex">
+                                <div class="row mb-3">
+                                    <label for="minZDimension" class="col-form-label col">Minimum Z coordinate</label>
+                                    <div class="col">
+                                        <input id="minZDimension" class="form-control" type="number" step="1"
+                                               name="minZDimension" th:value="*{minZDimension}" required>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 ms-5">
+                                    <label for="maxZDimension" class="col-form-label col">Maximum Z coordinate</label>
+                                    <div class="col">
+                                        <input id="maxZDimension" class="form-control" type="number" step="1"
+                                               name="maxZDimension" th:value="*{maxZDimension}" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div th:if="${error != null}" class="mb-3">
+                            <span class="error-message" th:text="${error}">Error occurred while creating a metaverse</span>
+                        </div>
+
+                        <div class="col-2 mt-5">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

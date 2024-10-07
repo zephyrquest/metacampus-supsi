@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{master :: layout(~{::title},~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Text form</title>
+</head>
+<body>
+<main>
+    <div id="mainContainer" class="container-fluid">
+        <div class="row">
+            <div id="categoryMenuContainer" class="col-2">
+                <div th:insert="category-navigation-menu"></div>
+            </div>
+            <div class="col">
+                <div th:insert="resources-navigation-menu"></div>
+
+                <div class="form-container">
+                    <form th:href="@{${href}}" method="post" enctype="multipart/form-data" th:object="${text}">
+                        <div class="mb-5">
+                            <span class="fs-4 text-body-secondary" th:text="${title}"></span>
+                        </div>
+
+                        <div th:if="${onEdit}">
+                            <input type="hidden" th:field="*{textPanels}">
+                            <input type="hidden" th:field="*{fileName}">
+                            <input type="hidden" th:field="*{creator}">
+                            <input type="hidden" th:field="*{creationDate}">
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="title" class="col-form-label col-2">Title</label>
+                            <div class="col-6">
+                                <input id="title" class="form-control" type="text" name="title" autocomplete="off"
+                                       th:value="*{title}" required>
+                            </div>
+                        </div>
+
+                        <div th:if="${!onEdit}">
+                            <div class="row mb-3">
+                                <label for="textFile" class="col-form-label col-2">Text file</label>
+                                <div class="col-6">
+                                    <input id="textFile" class="form-control" type="file" name="textFile"
+                                           accept=".txt" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div th:if="${!onEdit}">
+                            <div class="row mb-3">
+                                <label for="textPanels" class="col-form-label col-2">Text panels</label>
+                                <div class="col-6">
+                                    <select id="textPanels" class="form-select" name="textPanels" multiple size="3" required>
+                                        <option th:each="textPanel : ${textPanels}"
+                                                th:value="${textPanel.id}"
+                                                th:text="${textPanel.name + ' - ' + textPanel.metaverse.name}"
+                                                th:selected="${text.textPanels != null
+                                            && text.textPanels.contains(textPanel)}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div th:if="${error != null}" class="mb-3">
+                            <span class="error-message" th:text="${error}">Error occurred while creating a text</span>
+                        </div>
+
+                        <div class="col-2 mt-5">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

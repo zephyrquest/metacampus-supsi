@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{master :: layout(~{::title},~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Display panel exhibition form</title>
+</head>
+<body>
+<main>
+    <div id="mainContainer" class="container-fluid">
+        <div class="row">
+            <div id="categoryMenuContainer" class="col-2">
+                <div th:insert="category-navigation-menu"></div>
+            </div>
+            <div class="col">
+                <div th:insert="spaces-navigation-menu"></div>
+
+                <div class="form-container">
+                    <form th:href="@{${href}}" method="post" th:object="${displayPanel}">
+                        <div class="mb-5">
+                            <span class="fs-4 text-body-secondary " th:text="${title}"></span>
+                        </div>
+
+                        <input type="hidden" th:field="*{images}">
+                        <input type="hidden" th:field="*{creator}">
+
+                        <div class="row mb-3">
+                            <label for="name" class="col-form-label col-2">Name</label>
+                            <div class="col-4">
+                                <input id="name" class="form-control" type="text" name="name"
+                                       th:value="*{name}" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="type" class="col-form-label col-2">Type</label>
+                            <div class="col-4">
+                                <select id="type" class="form-select" name="type" required>
+                                    <option th:each="type : ${displayPanelTypes}"
+                                            th:value="${type}"
+                                            th:text="${type + ' - ' + type.description}"
+                                            th:selected="${displayPanel.type != null
+                                            && type == displayPanel.type}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="metaverse" class="col-form-label col-2">Metaverse</label>
+                            <div class="col-4">
+                                <select id="metaverse" class="form-select" name="metaverse" required>
+                                    <option th:each="metaverse : ${metaverses}"
+                                            th:value="${metaverse.id}" th:text="${metaverse.name}"
+                                            th:selected="${displayPanel.metaverse != null
+                                            && metaverse.id == displayPanel.metaverse.id}"
+                                            th:attr="minXDimension=${metaverse.minXDimension},
+                                                minYDimension=${metaverse.minYDimension},
+                                                minZDimension=${metaverse.minZDimension},
+                                                maxXDimension=${metaverse.maxXDimension},
+                                                maxYDimension=${metaverse.maxYDimension},
+                                                maxZDimension=${metaverse.maxZDimension}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="border border-top my-4"></div>
+
+                        <div class="mb-3">
+                            <span class="fs-5">Coordinates (in meters)</span>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="x" class="col-form-label col-2">x</label>
+                            <div class="col-2">
+                                <input id="x" class="form-control" type="number" step="1"
+                                       name="coordinates.x"
+                                       th:value="*{coordinates.x}" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="y" class="col-form-label col-2">y</label>
+                            <div class="col-2">
+                                <input id="y" class="form-control" type="number" step="1"
+                                       name="coordinates.y" th:value="*{coordinates.y}" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="z" class="col-form-label col-2">z</label>
+                            <div class="col-2">
+                                <input id="z" class="form-control" type="number" step="1"
+                                       name="coordinates.z" th:value="*{coordinates.z}" required>
+                            </div>
+                        </div>
+
+                        <div th:if="${error != null}" class="mb-3">
+                            <span class="error-message" th:text="${error}">Error occurred while creating a display panel exhibition</span>
+                        </div>
+
+                        <div class="col-2 mt-5">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('metaverse').addEventListener('change', function() {
+            let select = this;
+            let selectedOptionIndex = select.selectedIndex;
+            let selectedOption = select.options[selectedOptionIndex];
+
+            let xInput = document.getElementById('x');
+            let yInput = document.getElementById('y');
+            let zInput = document.getElementById('z');
+
+            xInput.setAttribute('min', selectedOption.getAttribute('minXDimension'));
+            xInput.setAttribute('max', selectedOption.getAttribute('maxXDimension'));
+            yInput.setAttribute('min', selectedOption.getAttribute('minYDimension'));
+            yInput.setAttribute('max', selectedOption.getAttribute('maxYDimension'));
+            zInput.setAttribute('min', selectedOption.getAttribute('minZDimension'));
+            zInput.setAttribute('max', selectedOption.getAttribute('maxZDimension'));
+        })
+
+        document.getElementById('metaverse').dispatchEvent(new Event('change'));
+    </script>
+</main>
+</body>
+</html>
